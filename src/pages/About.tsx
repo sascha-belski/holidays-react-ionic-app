@@ -11,7 +11,7 @@ const About: React.FC = () => (
         <IonTitle>About</IonTitle>
       </IonToolbar>
     </IonHeader>
-    <IonContent fullscreen>
+    <IonContent>
       <p>educational purpose only</p>
     </IonContent>
   </IonPage>

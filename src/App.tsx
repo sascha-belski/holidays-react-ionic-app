@@ -1,6 +1,6 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { IonApp } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter } from '@ionic/react-router';
 import { IonRouterOutlet } from '@ionic/react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -13,7 +13,8 @@ import About from './pages/About';
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter basename="/holidays-react-ionic-app">
+    {/* <IonReactHashRouter basename="/holidays-react-ionic-app"></IonReactHashRouter> */}
+    <IonReactHashRouter>
      {/* <div className="app-device-frame"> */}
         <AppMenu />
         <IonRouterOutlet id="main-content">
@@ -24,7 +25,7 @@ const App: React.FC = () => (
           </Switch>
         </IonRouterOutlet>
       {/* </div> */}
-    </IonReactRouter>
+    </IonReactHashRouter>
   </IonApp>
 );
 
