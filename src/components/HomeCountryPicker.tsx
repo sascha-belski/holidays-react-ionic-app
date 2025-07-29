@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { IonPicker, IonPickerColumn, IonPickerColumnOption } from '@ionic/react';
+import { IonSelect, IonSelectOption, IonItem } from '@ionic/react';
 
 interface CountryName {
   language: string;
@@ -13,8 +13,13 @@ interface Country {
   officialLanguages: string[];
 }
 
-const HomeCountryPicker: React.FC = () => {
+interface HomeCountryPickerProps {
+  onChange?: (value: string) => void;
+}
+
+const HomeCountryPicker: React.FC<HomeCountryPickerProps> = ({ onChange }) => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [selected, setSelected] = useState<string>('');
 
   useEffect(() => {
     fetch('https://openholidaysapi.org/Countries')
@@ -24,24 +29,31 @@ const HomeCountryPicker: React.FC = () => {
       });
   }, []);
 
+  const handleChange = (e: CustomEvent) => {
+    const selectedValue = e.detail.value;
+    setSelected(selectedValue);
+    onChange?.(selectedValue);
+  };
+
   return (
-    <IonPicker>
-      <IonPickerColumn>
-        <IonPickerColumnOption value="" disabled={true}>
-            --
-        </IonPickerColumnOption>
-        {countries.map(country => {
-          // Extract English name from the array
-          const englishNameObj = country.name.find(n => n.language === 'EN');
-          const displayName = englishNameObj ? englishNameObj.text : country.isoCode;
-          return (
-            <IonPickerColumnOption key={country.isoCode} value={country.isoCode}>
-              {displayName}
-            </IonPickerColumnOption>
-          );
-        })}
-      </IonPickerColumn>
-    </IonPicker>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <IonItem lines="none">
+        <IonSelect label="choose a country"
+          value={selected}
+          placeholder="Pick a country"
+          onIonChange={handleChange}
+        >
+          {countries.map((country) => {
+            const name = country.name.find(n => n.language === 'EN')?.text || country.isoCode;
+            return (
+              <IonSelectOption key={country.isoCode} value={country.isoCode}>
+                {name}
+              </IonSelectOption>
+            );
+          })}
+        </IonSelect>
+      </IonItem>
+    </div>
   );
 };
 
