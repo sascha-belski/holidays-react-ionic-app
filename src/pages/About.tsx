@@ -1,10 +1,13 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
+import { IonPage, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
 
 const About: React.FC = () => (
   <IonPage>
     <IonHeader>
       <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
         <IonTitle>About</IonTitle>
       </IonToolbar>
     </IonHeader>

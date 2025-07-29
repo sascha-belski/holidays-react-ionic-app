@@ -21,6 +21,8 @@ setupIonicReact();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <div className="device-frame">
+      <App />
+    </div>
   </StrictMode>,
 )

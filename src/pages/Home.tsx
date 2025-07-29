@@ -1,15 +1,20 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
+import { IonPage, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
+
+import HomeCountryPicker from '../components/HomeCountryPicker';
 
 const Home: React.FC = () => (
   <IonPage>
     <IonHeader>
       <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
         <IonTitle>Home</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonContent fullscreen>
-      <p>Welcome to Home Page!</p>
+      <HomeCountryPicker />
     </IonContent>
   </IonPage>
 );
