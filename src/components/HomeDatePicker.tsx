@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { IonDatetime, IonDatetimeButton, IonModal } from '@ionic/react';
 
-interface DateRangePickerProps {
+interface HomeDatePickerProps {
   id: string; // Unique ID for the datetime control
   defaultDate: string;
   onChange?: (pdate: string) => void;
 }
 
-const HomeDatePicker: React.FC<DateRangePickerProps> = ({ id, defaultDate, onChange }) => {
+const HomeDatePicker: React.FC<HomeDatePickerProps> = ({ id, defaultDate, onChange }) => {
   const [datePicked, setDatePicked] =  useState<string | undefined>(defaultDate);
 
   const handleChange = (e: CustomEvent) => {
@@ -19,9 +19,8 @@ const HomeDatePicker: React.FC<DateRangePickerProps> = ({ id, defaultDate, onCha
 
   return (
     <>
-
-      <IonDatetimeButton datetime={id}  />
-      <IonModal keepContentsMounted={true}>
+      <IonDatetimeButton datetime={id} />
+      <IonModal keepContentsMounted={true} >
         <IonDatetime
           id={id}
           presentation="date"
@@ -29,7 +28,6 @@ const HomeDatePicker: React.FC<DateRangePickerProps> = ({ id, defaultDate, onCha
           onIonChange={handleChange}
         />
       </IonModal>
-
     </>
   );
 };

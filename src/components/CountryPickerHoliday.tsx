@@ -1,48 +1,74 @@
-// import React from 'react';
-// import { useEffect, useState } from 'react';
-// import { IonPicker, IonPickerColumn, IonPickerColumnOption } from '@ionic/react';
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { IonItem, IonLabel, IonList, IonText } from '@ionic/react';
 
-// interface CountryName {
-//   language: string;
-//   text: string;
-// }
+interface CountryPickerHolidayProps {
+  dateFrom: string;
+  dateTo: string;
+  selectedCountry: string;
+}
 
-// interface Country {
-//   isoCode: string;
-//   name: CountryName[];
-//   officialLanguages: string[];
-// }
+interface HolidayName {
+  language: string;
+  text: string;
+}
 
-// const CountryPickerHoliday: React.FC = () => {
-//   const [country, setCountry] = useState<Country>();
+interface Holiday {
+  id: string,
+  startDate: string;
+  endDate: string;
+  type: string;
+  name: HolidayName[];
+  regionalScope: string;
+  temporalScope: string;
+  nationwide: boolean;
+}
 
-//   useEffect(() => {
-//     fetch('https://openholidaysapi.org/PublicHolidays?countryIsoCode=CH&languageIsoCode=EN&validFrom=2025-01-01&validTo=2025-06-30')
-//       .then(res => res.json())
-//       .then((data: Country[]) => {
-//         setCountry(data);
-//       });
-//   }, []);
+const CountryPickerHoliday: React.FC<CountryPickerHolidayProps> = ({ dateFrom, dateTo, selectedCountry }) => {
+  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
-//   return (
-//     <IonPicker>
-//       <IonPickerColumn>
-//         <IonPickerColumnOption value="" disabled={true}>
-//             --
-//         </IonPickerColumnOption>
-//         {country.map(country => {
-//           // Extract English name from the array
-//           const englishNameObj = country.name.find(n => n.language === 'EN');
-//           const displayName = englishNameObj ? englishNameObj.text : country.isoCode;
-//           return (
-//             <IonPickerColumnOption key={country.isoCode} value={country.isoCode}>
-//               {displayName}
-//             </IonPickerColumnOption>
-//           );
-//         })}
-//       </IonPickerColumn>
-//     </IonPicker>
-//   );
-// };
+  useEffect(() => {
+    fetch(`https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&languageIsoCode=EN&validFrom=${dateFrom}&validTo=${dateTo}`)
+      .then(res => res.json())
+      .then((data: Holiday[]) => {
+        setHolidays(data);
+      });
+  },  [selectedCountry, dateFrom, dateTo]);
 
-// export default CountryPickerHoliday;
+  const toggleExpand = (id: string) => {
+      setExpandedId(curr => (curr === id ? null : id));
+    };
+
+  return (
+    <IonList>
+       {holidays.map(holiday => {
+          // Extract English name from the array
+          const englishNameObj = holiday.name.find(n => n.language === 'EN');
+          const displayName = englishNameObj ? englishNameObj.text : holiday.id;
+          return (
+            <div key={holiday.id}>
+            <IonItem button detail onClick={() => toggleExpand(holiday.id)}>
+              <IonLabel>{displayName}</IonLabel>
+            </IonItem>
+
+            {expandedId === holiday.id && (
+              <div style={{ padding: '10px 16px' }}>
+                <IonText color="medium">
+                  <p><strong>Start:</strong> {holiday.startDate}</p>
+                  <p><strong>End:</strong> {holiday.endDate}</p>
+                  <p><strong>Type:</strong> {holiday.type}</p>
+                  <p><strong>Nationwide:</strong> {holiday.nationwide ? 'Yes' : 'No'}</p>
+                  <p><strong>Scope:</strong> {holiday.regionalScope}, {holiday.temporalScope}</p>
+                </IonText>
+              </div>
+            )}
+          </div>
+          );
+        })}
+
+    </IonList>
+  );
+};
+
+export default CountryPickerHoliday;

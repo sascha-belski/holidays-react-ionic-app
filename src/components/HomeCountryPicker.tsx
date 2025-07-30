@@ -14,12 +14,13 @@ interface Country {
 }
 
 interface HomeCountryPickerProps {
+  selectedCountry: string;
   onChange?: (value: string) => void;
 }
 
-const HomeCountryPicker: React.FC<HomeCountryPickerProps> = ({ onChange }) => {
+const HomeCountryPicker: React.FC<HomeCountryPickerProps> = ({ selectedCountry, onChange }) => {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [selected, setSelected] = useState<string>('');
+  const [selected, setSelected] = useState<string>(selectedCountry);
 
   useEffect(() => {
     fetch('https://openholidaysapi.org/Countries')
@@ -37,7 +38,7 @@ const HomeCountryPicker: React.FC<HomeCountryPickerProps> = ({ onChange }) => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <IonItem lines="none">
+      <IonItem lines="none" color="light">
         <IonSelect label="choose a country"
           value={selected}
           placeholder="Pick a country"
