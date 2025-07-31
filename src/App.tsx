@@ -9,6 +9,7 @@ import './App.css';
 import AppMenu from './components/AppMenu';
 
 import Home from './pages/Home';
+import School from './pages/School';
 import About from './pages/About';
 
 const App: React.FC = () => (
@@ -20,6 +21,7 @@ const App: React.FC = () => (
         <IonRouterOutlet id="main-content">
           <Switch>
             <Route exact path="/home" component={Home} />
+            <Route exact path="/school" component={School} />
             <Route exact path="/about" component={About} />
             <Redirect exact from="/" to="/home" />
           </Switch>

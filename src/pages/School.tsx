@@ -14,12 +14,12 @@ import { IonIcon } from '@ionic/react';
 import { logoIonic } from 'ionicons/icons';
 
 
-const Home: React.FC = () => {
+const School: React.FC = () => {
 
   const currentYear = new Date().getFullYear();
   const defaultFrom = `${currentYear}-01-01`;
   const defaultTo = `${currentYear}-12-31`;
-  const option = 'PublicHolidays';
+  const option = 'Schoolholidays';
 
   const [selectedCountry, setSelectedCountry] = useState<string>('DE');
   const [dateFrom, setDateFrom] = useState<string>(defaultFrom);
@@ -70,4 +70,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default School;

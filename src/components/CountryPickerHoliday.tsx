@@ -6,6 +6,7 @@ interface CountryPickerHolidayProps {
   dateFrom: string;
   dateTo: string;
   selectedCountry: string;
+  option: 'PublicHolidays' | 'Schoolholidays';
 }
 
 interface HolidayName {
@@ -24,12 +25,12 @@ interface Holiday {
   nationwide: boolean;
 }
 
-const CountryPickerHoliday: React.FC<CountryPickerHolidayProps> = ({ dateFrom, dateTo, selectedCountry }) => {
+const CountryPickerHoliday: React.FC<CountryPickerHolidayProps> = ({ dateFrom, dateTo, selectedCountry, option }) => {
   const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&languageIsoCode=EN&validFrom=${dateFrom}&validTo=${dateTo}`)
+    fetch(`https://openholidaysapi.org/${option}?countryIsoCode=${selectedCountry}&languageIsoCode=EN&validFrom=${dateFrom}&validTo=${dateTo}`)
       .then(res => res.json())
       .then((data: Holiday[]) => {
         setHolidays(data);

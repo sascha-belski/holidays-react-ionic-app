@@ -17,6 +17,11 @@ const AppMenu: React.FC = () => {
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
+            <IonItem routerLink="/school" routerDirection="none" detail={false}>
+              <IonLabel>School holidays</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
             <IonItem routerLink="/about" routerDirection="none" detail={false}>
               <IonLabel>About</IonLabel>
             </IonItem>
