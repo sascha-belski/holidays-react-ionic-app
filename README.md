@@ -2,7 +2,7 @@
 
 This is a demonstration project built using **React**, **TypeScript**, **Vite**, and **Ionic Framework** to explore public holidays by country and date.
 
-> **Note:** This app uses a free REST API courtesy of [openholidaysapi.org](https://openholidaysapi.org/)
+> **Note:** This app uses a free REST API courtesy of [openholidaysapi.org](https://openholidaysapi.org/swagger/index.html)
 > for **educational and demonstrational purposes only**.
 
 ---
@@ -29,4 +29,4 @@ Check out the live version of this project here:
 - **React** with **TypeScript**
 - **Vite** for fast dev environment
 - **Ionic React** for native-like mobile UI
-- **REST API**: [openholidaysapi.org](https://openholidaysapi.org/)
+- **REST API**: [openholidaysapi.org](https://openholidaysapi.org/swagger/index.html)
